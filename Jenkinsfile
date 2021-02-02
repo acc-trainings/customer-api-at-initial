@@ -42,7 +42,7 @@ stages {
     stage('Login Into Quay') {
     steps {
         script {
-        withCredentials([usernamePassword(credentialsId: 'QuayMonitor' , passwordVariable:'password', usernameVariable:'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'QuayMonitor1' , passwordVariable:'password', usernameVariable:'username')]) {
             sh '''
             docker --version
             docker login quay.io -u ${username} -p ${password}
@@ -55,9 +55,9 @@ stages {
     stage('Build Image with Quay') {
     steps {
         script {
-        withCredentials([usernamePassword(credentialsId: 'QuayMonitor' , passwordVariable:'password', usernameVariable:'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'QuayMonitor1' , passwordVariable:'password', usernameVariable:'username')]) {
             sh '''
-             docker build . -t quay.io/necloudnativetraining/customer-service-kc:${SNP_IMG_TAG}
+             docker build . -t quay.io/necloudnativetraining/Acctrainings:${SNP_IMG_TAG}
             '''
     }
     }
@@ -67,10 +67,10 @@ stages {
     stage('Push Image to Quay') {
     steps {
         script {
-        withCredentials([usernamePassword(credentialsId: 'QuayMonitor' , passwordVariable:'password', usernameVariable:'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'QuayMonitor1' , passwordVariable:'password', usernameVariable:'username')]) {
             sh '''
              docker login quay.io -u ${username} -p ${password}
-             docker push quay.io/necloudnativetraining/customer-service-kc:${SNP_IMG_TAG}
+             docker push quay.io/necloudnativetraining/Acctrainings:${SNP_IMG_TAG}
             '''
     }
     }
