@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-service-ketan
+  name: customer-service-kc
   namespace: "springboot-workshop-feb-2021"
 spec:
   ports:
@@ -14,7 +14,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-service-ketan
+  name: customer-service-kc
   namespace: "springboot-workshop-feb-2021"
 spec:
   replicas: 3
@@ -28,7 +28,7 @@ spec:
         app: customer-service-node
     spec:
       containers:
-        - image: quay.io/necloudnativetraining/customer-service-ketan:%%IMG_TAG%%
+        - image: quay.io/necloudnativetraining/customer-service-kc:%%IMG_TAG%%
           name: customer-service-node
           env:
           resources: {}
@@ -41,12 +41,12 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: customer-service-ketan
+  name: customer-service-kc
   namespace: "springboot-workshop-feb-2021"
 spec:
   to:
     kind: Service
-    name: customer-service-ketan
+    name: customer-service-kc
     weight: 100
 status:
   ingress:
