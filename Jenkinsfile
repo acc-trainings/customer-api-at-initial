@@ -21,7 +21,7 @@ stages {
         stage('checkout SCM') {
         steps {
             script {
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'githubglobal', url: 'https://github.com/acc-trainings/customer-service-ketanchhatbar']]]
+                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'githubglobal', url: 'https://github.com/acc-trainings/customer-service-kc']]]
                 println "Branch Name : "+" ${env.BRANCH_NAME}"    
             }
         }
@@ -57,7 +57,7 @@ stages {
         script {
         withCredentials([usernamePassword(credentialsId: 'QuayMonitor' , passwordVariable:'password', usernameVariable:'username')]) {
             sh '''
-             docker build . -t quay.io/necloudnativetraining/customer-service-ketan:${SNP_IMG_TAG}
+             docker build . -t quay.io/necloudnativetraining/customer-service-kc:${SNP_IMG_TAG}
             '''
     }
     }
@@ -70,7 +70,7 @@ stages {
         withCredentials([usernamePassword(credentialsId: 'QuayMonitor' , passwordVariable:'password', usernameVariable:'username')]) {
             sh '''
              docker login quay.io -u ${username} -p ${password}
-             docker push quay.io/necloudnativetraining/customer-service-ketan:${SNP_IMG_TAG}
+             docker push quay.io/necloudnativetraining/customer-service-kc:${SNP_IMG_TAG}
             '''
     }
     }
@@ -88,7 +88,7 @@ stages {
             git config --global user.email "ketan.chhatbar@accenture.com"
             git config --global user.name "ketanchhatbar"
             '''
-            sh 'git clone --branch main https://${username}:${password}@github.com/acc-trainings/ketanchhatbar-ConfigReo.git masterconfigyaml'
+            sh 'git clone --branch main https://${username}:${password}@github.com/acc-trainings/customer-service-configrepo-kc.git masterconfigyaml'
             sh 'pwd'
             sh '''
             sed "s/%%IMG_TAG%%/${SNP_IMG_TAG}/g" "${WORKSPACE}/Deployment/appdeploy.yaml" > "${WORKSPACE}/masterconfigyaml/appdeploy.yaml"
@@ -105,7 +105,7 @@ stages {
             sh 'git add appdeploy.yaml'
             sh '''
             git commit -am "adding latest appdeploy.yaml file to config repo"
-            git push https://${username}:${password}@github.com/acc-trainings/ketanchhatbar-ConfigReo.git --all
+            git push https://${username}:${password}@github.com/acc-trainings/customer-service-configrepo-kc.git --all
             '''
             }
     }
