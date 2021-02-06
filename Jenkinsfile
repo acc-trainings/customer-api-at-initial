@@ -7,7 +7,7 @@ agent
 }
 
     environment {
-            SNP_IMG_TAG = "SNAP_1.0.${BUILD_NUMBER}"
+            SNP_IMG_TAG = "SNAP_1.0.${BRANCH_NAME}"
                 }
     
 stages {
@@ -21,7 +21,7 @@ stages {
         stage('checkout SCM') {
         steps {
             script {
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'githubglobal', url: 'https://github.com/acc-trainings/customer-service-kc']]]
+                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'githubglobal', url: 'https://github.com/acc-trainings/customer-api-at-initial']]]
                 println "Branch Name : "+" ${env.BRANCH_NAME}"    
             }
         }
@@ -88,7 +88,7 @@ stages {
             git config --global user.email "ketan.chhatbar@accenture.com"
             git config --global user.name "ketanchhatbar"
             '''
-            sh 'git clone --branch main https://${username}:${password}@github.com/acc-trainings/customer-service-configrepo-kc.git masterconfigyaml'
+            sh 'git clone --branch main https://${username}:${password}@github.com/acc-trainings/customer-api-at-configrepo-initial.git masterconfigyaml'
             sh 'pwd'
             sh '''
             sed "s/%%IMG_TAG%%/${SNP_IMG_TAG}/g" "${WORKSPACE}/Deployment/appdeploy.yaml" > "${WORKSPACE}/masterconfigyaml/appdeploy.yaml"
@@ -105,7 +105,7 @@ stages {
             sh 'git add appdeploy.yaml'
             sh '''
             git commit -am "adding latest appdeploy.yaml file to config repo"
-            git push https://${username}:${password}@github.com/acc-trainings/customer-service-configrepo-kc.git --all
+            git push https://${username}:${password}@github.com/acc-trainings/customer-api-at-configrepo-initial.git --all
             '''
             }
     }
