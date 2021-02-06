@@ -1,52 +1,52 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-service-kc
-  namespace: "springboot-workshop-feb-2021"
+  name: customer-api-at-initial
+  namespace: "customer-api-at-initial"
 spec:
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 8080
   selector:
-    app: customer-service-node
+    app: customer-api-at-initial-node
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-service-kc
-  namespace: "springboot-workshop-feb-2021"
+  name: customer-api-at-initial
+  namespace: "customer-api-at-initial"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: customer-service-node
+      app: customer-api-at-initial-node
   strategy: {}
   template:
     metadata:
       labels:
-        app: customer-service-node
+        app: customer-api-at-initial-node
     spec:
       containers:
-        - image: quay.io/necloudnativetraining/customer-service-kc:%%IMG_TAG%%
-          name: customer-service-node
+        - image: quay.io/acctrainings/customer-api-at:%%IMG_TAG%%
+          name: customer-api-at-initial-node
           env:
           resources: {}
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
       imagePullSecrets:
-        - name: quay-cred
+        - name: quay-cred-initial
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: customer-service-kc
-  namespace: "springboot-workshop-feb-2021"
+  name: customer-api-at-initial
+  namespace: "customer-api-at-initial"
 spec:
   to:
     kind: Service
-    name: customer-service-kc
+    name: customer-api-at-initial
     weight: 100
 status:
   ingress:
