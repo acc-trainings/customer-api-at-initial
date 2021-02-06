@@ -7,7 +7,7 @@ agent
 }
 
     environment {
-            SNP_IMG_TAG = "SNAP_1.0.${BRANCH_NAME}"
+            SNP_IMG_TAG = "SNAP_1.0.${BUILD_NUMBER}.${BRANCH_NAME}"
                 }
     
 stages {
