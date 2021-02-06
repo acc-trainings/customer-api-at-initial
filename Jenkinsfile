@@ -21,7 +21,8 @@ stages {
         stage('checkout SCM') {
         steps {
             script {
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'githubglobal', url: 'https://github.com/acc-trainings/customer-api-at-initial']]]
+                //checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'origin/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'githubglobal', url: 'https://github.com/acc-trainings/customer-api-at-initial']]]
+                checkout scm
                 println "Branch Name : "+" ${env.BRANCH_NAME}"    
             }
         }
