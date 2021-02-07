@@ -112,7 +112,14 @@ stages {
     }
     }
     }   
-    }    
+    }   
+    
+    stage('CleanWorkspace') {
+            steps {
+                deleteDir()
+            }
+        }
+    
     
 }
 }
