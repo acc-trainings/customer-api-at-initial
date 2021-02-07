@@ -114,7 +114,7 @@ stages {
     }   
     }   
     
-    stage('CleanWorkspace') {
+    stage('CleanWorkspaceEnd') {
             steps {
                 deleteDir()
             }
