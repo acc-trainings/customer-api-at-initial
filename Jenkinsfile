@@ -82,12 +82,12 @@ stages {
     stage('Deploy to Dev') {
     steps {
         script {
-        withCredentials([usernamePassword(credentialsId: 'githubglobal' , passwordVariable:'password', usernameVariable:'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'githubglobal1' , passwordVariable:'password', usernameVariable:'username')]) {
             
             sh '''
             git init
-            git config --global user.email "ketan.chhatbar@accenture.com"
-            git config --global user.name "ketanchhatbar"
+            git config --global user.email "acctrainings3@gmail.com"
+            git config --global user.name "acctrainings3"
             '''
             sh 'git clone --branch main https://${username}:${password}@github.com/acc-trainings/customer-api-at-configrepo-initial.git masterconfigyaml'
             sh 'pwd'
@@ -98,8 +98,8 @@ stages {
             dir('masterconfigyaml') {
             sh '''
             git init
-            git config --global user.email "ketan.chhatbar@accenture.com"
-            git config --global user.name "ketanchhatbar"
+            git config --global user.email "acctrainings3@gmail.com"
+            git config --global user.name "acctrainings3"
             '''
             sh 'ls'
             sh 'pwd'
