@@ -59,7 +59,7 @@ spec:
         env:
         resources: {}
       imagePullSecrets:
-        - name: quay-cred       
+        - name: quay-cred-initial     
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
