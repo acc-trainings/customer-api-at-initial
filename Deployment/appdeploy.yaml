@@ -16,39 +16,39 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: acctrainings-initial
-  namespace: "acctrainings-initial"
+  name: acctrainings-ketan
+  namespace: "acctrainings-ketan"
   labels:
-    app: acctrainings-initial
-    service: acctrainings-initial
+    app: acctrainings-ketan
+    service: acctrainings-ketan
 spec:
   ports:
   - port: 8080
     name: http
   selector:
-    app: acctrainings-initial-node
+    app: acctrainings-ketan-node
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: acctrainings-initial
+  name: acctrainings-ketan
   labels:
-    app: acctrainings-initial
+    app: acctrainings-ketan
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: acctrainings-initial-node
+      app: acctrainings-ketan-node
       version: v1
   template:
     metadata:
       labels:
-        app: acctrainings-initial-node
+        app: acctrainings-ketan-node
         version: v1
     spec:
       containers:
-      - name: acctrainings-initial-node
+      - name: acctrainings-ketan-node
         image: quay.io/acctrainings/customer-api:%%IMG_TAG%%
         imagePullPolicy: IfNotPresent
         envFrom:
@@ -59,19 +59,19 @@ spec:
         env:
         resources: {}
       imagePullSecrets:
-        - name: quay-cred-initial        
+        - name: quay-cred       
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: acctrainings-initial
-  namespace: "acctrainings-initial"
+  name: acctrainings-ketan
+  namespace: "acctrainings-ketan"
   labels:
-    app: acctrainings-initial
+    app: acctrainings-ketan
 spec:
   to:
     kind: Service
-    name: acctrainings-initial
+    name: acctrainings-ketan
 status:
   ingress:
   - conditions:
